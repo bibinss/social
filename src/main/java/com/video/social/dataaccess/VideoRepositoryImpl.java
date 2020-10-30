@@ -2,9 +2,7 @@ package com.video.social.dataaccess;
 
 import com.video.social.entity.Video;
 import org.springframework.stereotype.Component;
-import reactor.core.publisher.Flux;
 
-import java.time.Duration;
 import java.util.List;
 
 @Component
@@ -13,14 +11,20 @@ public class VideoRepositoryImpl implements VideoRepository {
 
     private static List<Video> getSampleVideos() {
         return List.of(
-                new Video(1, "Match 1", "Url"),
-                new Video(2, "Match 2", "Url"),
-                new Video(3, "Match 3", "Url"),
-                new Video(4, "Match 4", "Url"));
+                new Video(1, "Game 1", "/ico/img-1.jpg"),
+                new Video(2, "Game 2", "/ico/img-2.jpg"),
+                new Video(3, "Game 3", "/ico/img-3.jpg"),
+                new Video(4, "Game 4", "/ico/img-4.jpg"),
+                new Video(4, "Game 5", "/ico/img-5.jpg"));
     }
 
+//    @Override
+//    public Flux<Video> findAllAsynch() {
+//        return Flux.fromStream(videos.stream()).delayElements(Duration.ofSeconds(2));
+//    }
+
     @Override
-    public Flux<Video> findAll() {
-        return Flux.fromStream(videos.stream()).delayElements(Duration.ofSeconds(2));
+    public List<Video> findAll() {
+        return videos;
     }
 }

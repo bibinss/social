@@ -1,8 +1,10 @@
 package com.video.social.dataaccess;
 
 import com.video.social.entity.Video;
-import reactor.core.publisher.Flux;
+
+import java.util.List;
 
 public interface VideoRepository {
-    Flux<Video> findAll();
+//    Flux<Video> findAllAsynch();
+    List<Video> findAll();
 }

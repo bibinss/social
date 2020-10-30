@@ -7,12 +7,12 @@ Login feature used okta's OIDC based authentication. Hence you need to create a 
 ## Build
 ```mvn clean package```
 
-##Running application
+## Running application
 
-###Maven
+### Maven
 ```mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dspring.security.oauth2.client.provider.okta.issuer-uri='{yourOktaDomainUrl}' -Dspring.security.oauth2.client.registration.okta.client-id='{clientId}' -Dspring.security.oauth2.client.registration.okta.client-secret='{clientSecret}'"```
-###Docker
-####start application
+### Docker
+#### start application
 
 ```export OKTA_DOMAIN_URL={yourOktaDomainUrl}```
 
@@ -23,5 +23,5 @@ Login feature used okta's OIDC based authentication. Hence you need to create a 
 ```docker-compose up -d --build```
 
 ```docker-compose up -d --build```
-####stop application
+#### stop application
 ```docker-compose down```

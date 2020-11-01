@@ -8,6 +8,7 @@ services:
     networks:
       - internal
     environment:
+      - spring.security.oauth2.client.provider.okta.issuer-uri=$OKTA_DOMAIN_URL
       - spring.security.oauth2.client.registration.okta.client-id=$CLIENT_ID
       - spring.security.oauth2.client.registration.okta.client-secret=$CLIENT_SECRET
 

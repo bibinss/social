@@ -4,7 +4,7 @@ spring:
       client:
         provider:
           okta:
-            issuer-uri: https://dev-1960310.okta.com/oauth2/default
+            issuer-uri: 
         registration:
           okta:
             client-id:

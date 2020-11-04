@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <title>Bootstrap, from Twitter</title>
@@ -64,8 +64,28 @@
     <!-- Main hero unit for a primary marketing message or call to action -->
     <div class="hero-unit">
         <h1>Hello!</h1>
-        <p>Welcome to Coaching and Gaming platform - the most convenient place to meet your coach, socialise and improve your skills</p>
-        <p><a href="/oauth2/authorization/okta" class="btn btn-primary btn-large">Login</a></p>
+        <p>Welcome to Coaching and Sports platform - the most convenient place to meet your coach, socialise and improve your skills</p>
+
+        <form name="f" th:action="@{/form_process}" method="post">
+            <fieldset>
+                <legend>Please Login</legend>
+                <div th:if="${param.error}" class="alert alert-error">
+                    Invalid username and password.
+                </div>
+                <div th:if="${param.logout}" class="alert alert-success">
+                    You have been logged out.
+                </div>
+                <label for="username">Email</label>
+                <input type="text" id="username" name="username"/>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password"/>
+                <div class="form-actions">
+                    <button type="submit" class="btn">Log in</button>
+                </div>
+            </fieldset>
+        </form>
+
+        <!--        <p><a href="/oauth2/authorization/okta" class="btn btn-primary btn-large">Login</a></p>-->
     </div>
 
     <!-- Example row of columns -->
@@ -73,7 +93,7 @@
     <hr>
 
     <footer>
-        <p>&copy; Social Gaming 2020</p>
+        <p>&copy; Live Sports 2020</p>
     </footer>
 
 </div> <!-- /container -->

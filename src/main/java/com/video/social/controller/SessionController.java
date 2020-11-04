@@ -11,7 +11,7 @@ public class SessionController {
         if (authentication != null && authentication.isAuthenticated()) {
             return "redirect:home";
         }
-        return "login";
+        return "login2";
     }
 
     @GetMapping("/user/logout")

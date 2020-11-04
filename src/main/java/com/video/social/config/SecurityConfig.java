@@ -1,11 +1,23 @@
 package com.video.social.config;
 
+import com.video.social.dataaccess.UserDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -21,12 +33,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //    }
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
-        http
+        http    .cors().and().csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/css/**", "/ico/**", "/js/**", "/", "/user/login").permitAll()
+                .antMatchers("/css/**", "/ico/**", "/js/**", "/user/login", "/form_process").permitAll()
                 .anyRequest().authenticated()
                 .and().logout().logoutUrl("/user/logout").logoutSuccessUrl("/user/login")
-                .and().oauth2Login().loginPage("/user/login").failureUrl("/user/login?error=true");
+                .and().formLogin()
+                .loginPage("/user/login").loginProcessingUrl("/form_process").failureUrl("/user/login?error=true").permitAll();
     }
 
 //    @Bean
@@ -39,10 +52,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        return new MapReactiveUserDetailsService(user);
 //    }
 
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedMethods(Arrays.asList("*"));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setAllowCredentials(true);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+
+    @Autowired
+    private UserDetailsRepository userDetailsRepository;
+
     @Autowired
     public void configure(final AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .inMemoryAuthentication()
-                .withUser("user").password("{noop}password").roles("USER");
+        auth.userDetailsService(userDetailsRepository);
+    }
+
+    private List<UserDetails> userDetailsList = new ArrayList<>();
+
+    public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
+        userDetailsList.add(User.withUsername("coach").password("{noop}password")
+                .roles("COACH").build());
+        return new InMemoryUserDetailsManager(userDetailsList);
     }
 }

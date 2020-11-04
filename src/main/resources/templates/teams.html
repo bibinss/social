@@ -30,6 +30,7 @@
       }
     </style>
     <link href="/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -74,54 +75,52 @@
         <div class="span3">
             <div class="well sidebar-nav">
                 <ul class="nav nav-list">
-                    <li class="nav-header active"><a href="/">My Videos</a></li>
-                    <li><a href="/teams">My Teams</a></li>
+                    <li class="nav-header"><a href="/">My Videos</a></li>
+                    <li class="active"><a href="#">My Teams</a></li>
                     <li><a href="/user/logout">Logout</a></li>
                 </ul>
             </div><!--/.well -->
         </div><!--/span-->
         <div class="span9">
-            <div class="hero-unit">
-                <h1>Hello [[${user}]]!</h1>
-                <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-                <p><a href="#" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Library</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Data</li>
+                </ol>
+            </nav>
+            <div class="row-fluid">
+                <div class="list-group">
+                    <div th:each="team: ${teams}">
+                        <a th:href="|/teams/${team.id}|" class="list-group-item list-group-item-action">
+                            [[${team.name}]]
+                        </a>
+                    </div>
+                </div>
             </div>
             <div class="row-fluid">
-                <div class="span4">
-                    <h2>Cricket</h2>
-                    <div><iframe src="https://player.vimeo.com/video/126241987?app_id=122963" width="480" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen title="CBeebies &amp;#039;Cricket&amp;#039;"></iframe></div>
-                    <p><a class="btn" href="#">View details&raquo;</a></p>
-                </div>
-                <div class="span4">
-                    <h2>NBA</h2>
-                    <div><iframe src="https://player.vimeo.com/video/152509858?app_id=122963" width="480" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen title="NBA_Hands_60"></iframe></div>
-                    <p><a class="btn" href="#">View details&raquo;</a></p>
-                </div>
+
             </div>
             <div class="row-fluid">
-                <div class="span4" data-th-each="video : ${videos}">
-                    <h2>[[${video.name}]]</h2>
-                    <img th:attr="src=${video.url}" class="img-fluid" alt="Responsive image">
-                    <p><a class="btn" href="#">View details&raquo;</a></p>
-                </div>
-            </div><!--/row-->
-<!--            <div class="row-fluid">-->
-<!--                <div class="span4">-->
-<!--                    <h2>Heading</h2>-->
-<!--                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>-->
-<!--                    <p><a class="btn" href="#">View details &raquo;</a></p>-->
-<!--                </div>&lt;!&ndash;/span&ndash;&gt;-->
-<!--                <div class="span4">-->
-<!--                    <h2>Heading</h2>-->
-<!--                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>-->
-<!--                    <p><a class="btn" href="#">View details &raquo;</a></p>-->
-<!--                </div>&lt;!&ndash;/span&ndash;&gt;-->
-<!--                <div class="span4">-->
-<!--                    <h2>Heading</h2>-->
-<!--                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>-->
-<!--                    <p><a class="btn" href="#">View details &raquo;</a></p>-->
-<!--                </div>&lt;!&ndash;/span&ndash;&gt;-->
-<!--            </div>&lt;!&ndash;/row&ndash;&gt;-->
+                <a class="btn btn-primary" href="/addteam" role="button">Add New Team</a>
+            </div>
+<!--                        <div class="row-fluid">-->
+<!--                            <div class="span4">-->
+<!--                                <h2>Heading</h2>-->
+<!--                                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>-->
+<!--                                <p><a class="btn" href="#">View details &raquo;</a></p>-->
+<!--                            </div>&lt;!&ndash;/span&ndash;&gt;-->
+<!--                            <div class="span4">-->
+<!--                                <h2>Heading</h2>-->
+<!--                                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>-->
+<!--                                <p><a class="btn" href="#">View details &raquo;</a></p>-->
+<!--                            </div>&lt;!&ndash;/span&ndash;&gt;-->
+<!--                            <div class="span4">-->
+<!--                                <h2>Heading</h2>-->
+<!--                                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>-->
+<!--                                <p><a class="btn" href="#">View details &raquo;</a></p>-->
+<!--                            </div>&lt;!&ndash;/span&ndash;&gt;-->
+<!--                        </div>&lt;!&ndash;/row&ndash;&gt;-->
         </div><!--/span-->
     </div><!--/row-->
 

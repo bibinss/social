@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Bootstrap Example</title>
     <meta charset="utf-8">
@@ -65,7 +65,7 @@
             </div>
             <div class="row">
                 <div th:each="team: ${teams}">
-                    <a th:href="|/teams/${team.id}|" class="list-group-item list-group-item-action">
+                    <a th:href="|/teams/${team.id}|" class="list-group-item list-group-item-action list-group-item-dark">
                         [[${team.name}]]
                     </a>
                 </div>

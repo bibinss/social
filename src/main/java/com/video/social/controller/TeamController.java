@@ -4,14 +4,14 @@ import com.video.social.dataaccess.MemberRepository;
 import com.video.social.dataaccess.TeamsRepository;
 import com.video.social.entity.Team;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.UUID;
 
@@ -30,13 +30,11 @@ public class TeamController {
         List<Team> teams = teamsRepository.getTeams(coachName);
         model.addAttribute("teams", teams);
         model.addAttribute("user", authentication.getName());
-        System.out.println("team size" + teams.size());
         return "teams2";
     }
 
     @PostMapping(value = "/teams")
-    public String addOneTeam(@RequestParam String teamName, Authentication authentication) {
-        System.out.println(teamName);
+    public String addTeam(@RequestParam String teamName, Authentication authentication) {
         String coachName = authentication.getName();
         teamsRepository.createTeam(coachName, new Team(UUID.randomUUID().toString(),
                 teamName));
@@ -53,9 +51,15 @@ public class TeamController {
     public String getTeam(@PathVariable("id") String teamId,
                           final Model model, Authentication authentication) {
         model.addAttribute("user", authentication.getName());
-        String coachName = authentication.getName();
         model.addAttribute("team", teamsRepository.getTeam(teamId));
-        model.addAttribute("members", memberRepository.getMembers(teamId));
         return "team2";
+    }
+
+    @GetMapping("/teams/{id}/videos")
+    public String getVideos(@PathVariable("id") String teamId,
+                            final Model model, Authentication authentication) {
+        model.addAttribute("user", authentication.getName());
+        model.addAttribute("team", teamsRepository.getTeam(teamId));
+        return "team-videos";
     }
 }

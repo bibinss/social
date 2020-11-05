@@ -56,7 +56,8 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/">Home</a></li>
                         <li class="breadcrumb-item"><a href="/teams">My Teams</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">[[${team.name}]]</li>
+                        <li class="breadcrumb-item"><a th:href="|/teams/${team.id}|">[[${team.name}]]</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Videos</li>
                     </ol>
                 </nav>
             </div>
@@ -65,6 +66,12 @@
                     <button type="button" class="btn btn-secondary"><a th:href="|/teams/${team.id}/videos|">Videos Shared By You (Coach)</a></button>
                     <button type="button" class="btn btn-secondary"><a th:href="|/teams/${team.id}/members|">Members</a></button>
                 </div>
+            </div>
+            <div class="row">
+                <div><iframe src="https://player.vimeo.com/video/126241987?app_id=122963" width="480" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen title="CBeebies &amp;#039;Cricket&amp;#039;"></iframe></div>
+            </div>
+            <div class="row">
+                <div><iframe src="https://player.vimeo.com/video/152509858?app_id=122963" width="480" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen title="NBA_Hands_60"></iframe></div>
             </div>
         </div>
     </div>

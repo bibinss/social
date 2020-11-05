@@ -1,6 +1,7 @@
 package com.video.social.dataaccess;
 
 import com.video.social.entity.Member;
+import com.video.social.entity.Team;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,7 +14,7 @@ public class UserDetailsRepository implements UserDetailsService, MemberReposito
     static Map<String, List<Member>> membersMap = new HashMap<>();
     static  {
         List<Member> members = new ArrayList<>();
-        members.add(new Member(UUID.randomUUID().toString(), "Coach", "coach@gmail.com"));
+        members.add(new Member(UUID.randomUUID().toString(), "Coach", "coach@gmail.com", "ROLE_COACH"));
         membersMap.put("coach", members);
     }
     @Override
@@ -22,12 +23,23 @@ public class UserDetailsRepository implements UserDetailsService, MemberReposito
         for (List<Member> members : membersMap.values()) {
             for (Member member : members) {
                 if (member.getEmail().equals(userName)) {
-                    System.out.println(member);
                     return member;
                 }
             }
         };
         System.out.println();
+        return null;
+    }
+
+    @Override
+    public Member getMember(String memberId) {
+        for (List<Member> members : membersMap.values()) {
+            for (Member m : members) {
+                if (m.getId().equals(memberId)) {
+                    return m;
+                }
+            }
+        }
         return null;
     }
 
@@ -41,6 +53,30 @@ public class UserDetailsRepository implements UserDetailsService, MemberReposito
         List<Member> members = membersMap.getOrDefault(teamId, new ArrayList<>());
         members.add(member);
         membersMap.put(teamId, members);
+    }
+
+    @Override
+    public String getTeamId(String memberId) {
+        for (Map.Entry<String, List<Member>> kv : membersMap.entrySet()) {
+            for (Member member : kv.getValue()) {
+                if (member.getId().equals(memberId)) {
+                    return kv.getKey();
+                }
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public Member getMemberByEmail(String email) {
+        for (Map.Entry<String, List<Member>> kv : membersMap.entrySet()) {
+            for (Member member : kv.getValue()) {
+                if (member.getEmail().equals(email)) {
+                    return member;
+                }
+            }
+        }
+        return null;
     }
 
 }

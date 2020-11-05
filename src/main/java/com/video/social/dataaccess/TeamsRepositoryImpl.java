@@ -35,6 +35,5 @@ public class TeamsRepositoryImpl implements TeamsRepository {
         List<Team> teams = teamsMap.getOrDefault(coachName, new ArrayList<>());
         teams.add(team);
         teamsMap.put(coachName, teams);
-        System.out.println("Added team " + team);
     }
 }

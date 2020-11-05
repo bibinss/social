@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Bootstrap Example</title>
     <meta charset="utf-8">
@@ -46,14 +46,14 @@
                 <p><a href="#">My Profile</a></p>
                 <img src="/ico/profile.png" class="img-circle" height="65" width="65" alt="Avatar">
             </div>
-            <p><a href="/">My Videos</a></p>
-            <p><a href="/teams">My Teams</a></p>
+            <p sec:authorize="hasRole('ROLE_COACH')"><a href="/">My Videos</a></p>
+            <p sec:authorize="hasRole('ROLE_COACH')"><a href="/teams">My Teams</a></p>
             <p><a href="/user/logout">Logout</a></p>
         </div>
         <div class="col-sm-7">
 
             <div class="row text-right">
-                <button >Upload New Video</button>
+                <button>Upload New Video</button>
             </div>
             <div class="row">
                 <div><iframe src="https://player.vimeo.com/video/126241987?app_id=122963" width="480" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen title="CBeebies &amp;#039;Cricket&amp;#039;"></iframe></div>

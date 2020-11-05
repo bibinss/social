@@ -46,8 +46,8 @@
                 <p><a href="#">My Profile</a></p>
                 <img src="/ico/profile.png" class="img-circle" height="65" width="65" alt="Avatar">
             </div>
-            <p><a href="/">My Videos</a></p>
-            <p><a href="/teams">My Teams</a></p>
+            <p sec:authorize="hasRole('ROLE_COACH')"><a href="/">My Videos</a></p>
+            <p sec:authorize="hasRole('ROLE_COACH')"><a href="/teams">My Teams</a></p>
             <p><a href="/user/logout">Logout</a></p>
         </div>
         <div class="col-sm-7">
@@ -55,15 +55,33 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/">Home</a></li>
-                        <li class="breadcrumb-item"><a href="/teams">My Teams</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">[[${team.name}]]</li>
+                        <li class="breadcrumb-item" sec:authorize="hasRole('ROLE_COACH')"><a href="/teams">My Teams</a></li>
+                        <li class="breadcrumb-item" sec:authorize="hasRole('ROLE_COACH')"><a th:href="|/teams/${team.id}|">[[${team.name}]]</a></li>
+                        <li class="breadcrumb-item" sec:authorize="hasRole('ROLE_COACH')"><a th:href="|/teams/${team.id}/members|">Members</a></li>
+                        <li class="breadcrumb-item"><a th:href="|/teams/${team.id}/members/${member.id}|">[[${member.name}]]</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Progress</li>
                     </ol>
                 </nav>
             </div>
             <div class="row">
                 <div class="btn-group" role="group" aria-label="Basic example">
-                    <button type="button" class="btn btn-secondary"><a th:href="|/teams/${team.id}/videos|">Videos Shared By You (Coach)</a></button>
-                    <button type="button" class="btn btn-secondary"><a th:href="|/teams/${team.id}/members|">Members</a></button>
+                    <button type="button" class="btn btn-secondary"><a th:href="|/teams/${team.id}/members/${member.id}/videos|">1:1 Videos Shared By You (Coach)</a></button>
+                    <button type="button" class="btn btn-secondary"><a th:href="|/teams/${team.id}/members/${member.id}/videos|">1:1 Videos Shared By [[${member.name}]] (Student)</a></button>
+                    <button type="button" class="btn btn-secondary"><a th:href="|/teams/${team.id}/members/${member.id}/progress|">Progress</a></button>
+                </div>
+            </div>
+            <div class="row">
+                Your Progress Graph
+            </div>
+            <div class="row">
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">50%</div>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 70%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">70%</div>
                 </div>
             </div>
         </div>

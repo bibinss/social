@@ -8,7 +8,6 @@ public class SocialMeetApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SocialMeetApplication.class, args);
-		System.out.println("HELLOOOO");
 	}
 
 }

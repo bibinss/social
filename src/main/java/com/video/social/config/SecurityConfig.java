@@ -31,11 +31,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .anyExchange().authenticated()
 //                .and().oauth2Login().and().build();
 //    }
+
+
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http    .cors().and().csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/css/**", "/ico/**", "/js/**", "/user/login", "/form_process").permitAll()
+                .antMatchers("/css/**", "/ico/**", "/js/**", "/user/login",
+                        "/form_process",
+                        "/api/user/register",
+                        "/api/swagger-ui/**", "/api/swagger-ui.html",
+                        "/api/docs", "/api/docs/**").permitAll()
                 .anyRequest().authenticated()
                 .and().logout().logoutUrl("/user/logout").logoutSuccessUrl("/user/login")
                 .and().formLogin()

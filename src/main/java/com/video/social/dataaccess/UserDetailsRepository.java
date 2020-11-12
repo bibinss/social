@@ -19,7 +19,6 @@ public class UserDetailsRepository implements UserDetailsService, MemberReposito
     }
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        System.out.println("user name " + userName);
         for (List<Member> members : membersMap.values()) {
             for (Member member : members) {
                 if (member.getEmail().equals(userName)) {
@@ -27,7 +26,6 @@ public class UserDetailsRepository implements UserDetailsService, MemberReposito
                 }
             }
         };
-        System.out.println();
         return null;
     }
 

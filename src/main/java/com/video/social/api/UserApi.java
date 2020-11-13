@@ -9,14 +9,14 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.video.social.api.ResponseStatusCode.SUCCESS;
+import static com.video.social.api.ResponseStatusCode.USER_REGISTRATION_FAILED;
 
 @RestController
 @RequestMapping("/api")
@@ -33,8 +33,12 @@ public class UserApi {
 
     @PostMapping("/user/register")
     public ResponseEntity register(@RequestBody RegisterUserForm registerUser) {
-        //TODO
-        return new ResponseEntity("Registration Successful", HttpStatus.OK);
+        try {
+            return new ResponseEntity(new ResponseStatus(SUCCESS, "Registration Successful"), HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity(new ResponseStatus(USER_REGISTRATION_FAILED, e.getMessage()), HttpStatus.OK);
+        }
     }
 
     @PostMapping("/user/login")
@@ -51,9 +55,16 @@ public class UserApi {
             throw new BadCredentialsException("Invalid username/password supplied");
         }
     }
+
     @PostMapping("/user/resetpassword")
-    public ResponseEntity resetPassword(@RequestBody UserLoginForm userLogin) {
+    public ResponseEntity resetPassword(@RequestBody ResetPasswordForm resetPasswordForm) {
         //TODO
         return new ResponseEntity("Password Reset Successful", HttpStatus.OK);
+    }
+
+    @GetMapping("/user/checkusername")
+    public ResponseEntity checkUserName(@RequestParam String username) {
+        //TODO
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

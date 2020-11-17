@@ -9,14 +9,14 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.video.social.api.ResponseStatusCode.SUCCESS;
-import static com.video.social.api.ResponseStatusCode.USER_REGISTRATION_FAILED;
+import static com.video.social.api.ResponseStatusCode.*;
 
 @RestController
 @RequestMapping("/api")
@@ -31,17 +31,22 @@ public class UserApi {
     @Autowired
     private UserDetailsRepository userDetailsRepository;
 
-    @PostMapping("/user/register")
-    public ResponseEntity register(@RequestBody RegisterUserForm registerUser) {
+    @PostMapping("/user/updateprofile")
+    public ResponseEntity<UpdateProfileResult> register(@RequestBody UpdateProfileForm updateProfileForm) {
         try {
-            return new ResponseEntity(new ResponseStatus(SUCCESS, "Registration Successful"), HttpStatus.OK);
+            return new ResponseEntity(
+                    new UpdateProfileResult(new ResponseStatus(SUCCESS, "Successfully Updated Profile")),
+                    HttpStatus.OK);
         }
         catch (Exception e) {
-            return new ResponseEntity(new ResponseStatus(USER_REGISTRATION_FAILED, e.getMessage()), HttpStatus.OK);
+            return new ResponseEntity(
+                    new UpdateProfileResult(new ResponseStatus(USER_REGISTRATION_FAILED, e.getMessage())),
+                    HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @PostMapping("/user/login")
+    //@PostMapping("/user/login")
+    @Deprecated
     public ResponseEntity login(@RequestBody UserLoginForm userLogin) {
         try {
             String username = userLogin.getUsername();
@@ -56,15 +61,37 @@ public class UserApi {
         }
     }
 
-    @PostMapping("/user/resetpassword")
-    public ResponseEntity resetPassword(@RequestBody ResetPasswordForm resetPasswordForm) {
-        //TODO
-        return new ResponseEntity("Password Reset Successful", HttpStatus.OK);
+    @PostMapping("/user/generatepasscode")
+    public ResponseEntity<PasscodeResult> generatePasscode(@RequestParam String phoneNumber) {
+        try {
+            //TODO
+            PasscodeResult passcodeResult = new PasscodeResult("123",
+                    new ResponseStatus(SUCCESS, "Successful sent SMS with passcode"));
+            return new ResponseEntity(passcodeResult, HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity(new PasscodeResult(null,
+                    new ResponseStatus(UNKNOWN_FAILURE, e.getMessage())), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
-    @GetMapping("/user/checkusername")
-    public ResponseEntity checkUserName(@RequestParam String username) {
+    @PostMapping("/user/signin")
+    public ResponseEntity<SignInResult> signIn(@RequestBody SignInForm userLogin, Model model) {
+        try {
+            //TODO
+            return new ResponseEntity(new SignInResult("JWT-TOKEN",
+                    new ResponseStatus(SUCCESS, "Sign In Successful")), HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity(new SignInResult(null,
+                    new ResponseStatus(UNKNOWN_FAILURE, e.getMessage())), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/user/signout")
+    public ResponseEntity<SignOutResult> signOut(@RequestBody SignInForm userLogin, Model model) {
         //TODO
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(new SignOutResult(
+                new ResponseStatus(SUCCESS, "Sign Out Successful")), HttpStatus.OK);
     }
 }

@@ -1,6 +1,6 @@
 package com.video.social.api;
 
-public enum VideoUploadStatus {
+public enum FileUploadStatus {
     PROCESSING,
     READY
 }

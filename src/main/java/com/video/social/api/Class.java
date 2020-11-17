@@ -3,7 +3,6 @@ package com.video.social.api;
 import lombok.Data;
 
 @Data
-public class Team {
-    private String id;
+public class Class {
     private String name;
 }

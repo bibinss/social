@@ -5,6 +5,6 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class GetVideosResult {
-    private List<Video> videos;
+public class MembersGetResult {
+    private List<Member> members;
 }

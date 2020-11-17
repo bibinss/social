@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 public class LockerApi {
     @GetMapping("/lockers")
-    public ResponseEntity<GetLockersResult> getLockers() {
-        return new ResponseEntity(new GetLockersResult(), HttpStatus.OK);
+    public ResponseEntity<LockersGetResult> getLockers() {
+        return new ResponseEntity(new LockersGetResult(), HttpStatus.OK);
     }
 
     @PostMapping("/lockers")

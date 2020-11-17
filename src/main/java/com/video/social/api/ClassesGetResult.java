@@ -5,6 +5,6 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class GetLockersResult {
-    private List<Locker> lockers;
+public class ClassesGetResult {
+    private List<Class> classes;
 }

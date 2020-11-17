@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 public class MemberApi {
 
-    @GetMapping("/teams/{teamId}/members/")
-    public ResponseEntity<GetMembersResult> getMembers() {
-        return new ResponseEntity(new GetMembersResult(), HttpStatus.OK);
+    @GetMapping("/classes/{classId}/members")
+    public ResponseEntity<MembersGetResult> getMembers() {
+        return new ResponseEntity(new MembersGetResult(), HttpStatus.OK);
     }
 
-    @PostMapping("/teams/{teamId}/members/register")
+    @PostMapping("/classes/{classIdId}/members")
     public ResponseEntity<Member> registerMember(@RequestBody MemberRegisterForm memberRegisterForm) {
         return new ResponseEntity(new Member(), HttpStatus.OK);
     }
